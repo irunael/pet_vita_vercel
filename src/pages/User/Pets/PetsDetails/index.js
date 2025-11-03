@@ -237,7 +237,7 @@ const PetsDetails = () => {
                                 ) : (
                                     <>
                                         <button type="button" className="edit-button" onClick={handleEditClick}>Editar</button>
-                                        <button type="button" className="decline-button" onClick={handleDelete} style={{width: '150px'}}>Remover Pet</button>
+                                        <button type="button" className="decline-button" onClick={handleDelete}>Remover Pet</button>
                                         <Link to="/pets" className="back-button">Voltar</Link>
                                     </>
                                 )}

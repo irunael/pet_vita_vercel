@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import api from '../../services/api';
 import logo from '../../assets/images/Header/LogoPet_vita(Atualizado).png';
 import profileIcon from '../../assets/images/Header/perfilIcon.png';
 import calendarIcon from '../../assets/images/Header/Calendario.png';
@@ -9,8 +10,38 @@ import './css/styles.css';
 
 const HeaderComCadastro = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const { logout } = useAuth();
+  const [userImage, setUserImage] = useState(profileIcon);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  // Buscar foto do usuário
+  useEffect(() => {
+    const fetchUserImage = async () => {
+      if (user?.id) {
+        try {
+          const response = await api.get(`/users/me?_t=${new Date().getTime()}`);
+          if (response.data.imageurl) {
+            setUserImage(response.data.imageurl);
+          }
+        } catch (error) {
+          console.error('Erro ao buscar imagem do usuário:', error);
+        }
+      }
+    };
+    fetchUserImage();
+
+    // Listener para atualizar foto quando o perfil for atualizado
+    const handleProfileUpdate = () => {
+      fetchUserImage();
+    };
+
+    window.addEventListener('userProfileUpdated', handleProfileUpdate);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('userProfileUpdated', handleProfileUpdate);
+    };
+  }, [user]);
 
   const handleLogout = () => {
     logout();
@@ -45,6 +76,12 @@ const HeaderComCadastro = () => {
           Pets
         </NavLink>
         <NavLink 
+          to="/sobre-nos" 
+          className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
+        >
+          Sobre nós
+        </NavLink>
+        <NavLink 
           to="/conversations" 
           className={({ isActive }) => `nav_link ${isActive ? 'active' : ''}`}
         >
@@ -74,7 +111,11 @@ const HeaderComCadastro = () => {
             className="profile-icon" 
             onClick={() => setShowDropdown(!showDropdown)}
           >
-            <img src={profileIcon} alt="Perfil" />
+            <img 
+              src={userImage} 
+              alt="Perfil" 
+              onError={(e) => { e.target.onerror = null; e.target.src = profileIcon; }}
+            />
           </div>
           
           {showDropdown && (

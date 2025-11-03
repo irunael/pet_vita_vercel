@@ -1,5 +1,36 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Espaçamento para compensar o header fixo */
+.main-content {
+  padding-top: 120px; /* Altura do header + margem de segurança */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para páginas wrapper - garantir que o footer fique no fundo */
+.page-wrapper,
+.pet-profile-page,
+.add-pet-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.employee-content,
+.page-content-consultation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {

@@ -33,6 +33,9 @@ const ModalManager = ({ initialModal, onClose }) => {
         case 'VETERINARY':
           navigate('/vet/dashboard');
           break;
+        case 'EMPLOYEE':
+          navigate('/employee/dashboard');
+          break;
         case 'USER':
           navigate('/consultas');
           break;

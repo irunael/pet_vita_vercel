@@ -24,6 +24,9 @@ const PrivateRoute = ({ children, requiredRole }) => {
             return <Navigate to="/admin/dashboard" replace />;
         case 'VETERINARY':
             return <Navigate to="/vet/dashboard" replace />;
+        case 'EMPLOYEE':
+            return <Navigate to="/employee/dashboard" replace />;
+        case 'USER':
         default:
             return <Navigate to="/" replace />; // Usuário comum volta para a home
     }

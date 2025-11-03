@@ -7,19 +7,19 @@
   background-color: white;
 }
 
-.welcome-section {
-  text-align: center;
-  padding: 2rem 0;
-}
-
 .welcome-title {
-  font-size: 1.8rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #8D7EFB 0%, #B77EFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 2rem 0 1rem 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 /* Container principal */
-/* Atualizar o container principal */
 .pet-profile-container {
     background-color: #EBE4F4;
     width: 80%;
@@ -68,7 +68,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   position: relative;
   min-height: 150px;
 }
@@ -89,8 +89,19 @@
   object-fit: cover;
 }
 
+/* Container para nome e gênero alinhados */
+.pet-name-gender-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 0;
+}
+
 /* Informações do pet */
 .pet-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex: 1;
 }
 
@@ -107,18 +118,22 @@
 }
 
 .pet-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #2c3e50;
   margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .pet-gender {
-  background-color: #3498db;
+  background-color: #8D7EFB;
   color: white;
-  padding: 3px 10px;
-  border-radius: 15px;
-  font-size: 0.9rem;
-
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 /* Botão de detalhes */
@@ -126,7 +141,7 @@
   background: none;
   border: none;
   color: #C79DFD;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -135,11 +150,9 @@
   padding: 8px 15px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  position: absolute;
-  right: 25px;
   text-decoration: none;
+  margin-left: auto;
 }
-
 
 .details-button:hover {
   background-color: #f3e5f5;
@@ -173,4 +186,28 @@
   background-color: #B77EFF;
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(142, 68, 173, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .pet-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .pet-name-gender-container {
+    justify-content: center;
+  }
+  
+  .details-button {
+    position: static;
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .pet-profile-container {
+    width: 90%;
+    padding: 20px;
+  }
 }

@@ -7,10 +7,10 @@ import HeaderVeterinario from './HeaderVeterinario'; // Se você tiver
 import HeaderAdmin from './HeaderAdmin'; // Se você tiver
 
 const Header = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
 
   // Se não estiver autenticado, mostra header sem cadastro
-  if (!isAuthenticated) {
+  if (!user) {
     return <Header_sem_cadastro />;
   }
 

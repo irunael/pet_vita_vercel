@@ -1,11 +1,15 @@
 import React from 'react';
-import Header from '../../components/HeaderSemCadastro'
+import { useAuth } from '../../context/AuthContext';
+import HeaderSemCadastro from '../../components/HeaderSemCadastro';
+import HeaderComCadastro from '../../components/HeaderComCadastro';
 import Footer from '../../components/Footer';
 import LogoEquipe from '../../assets/images/AboutUs/Logo_equipe.png';
 import PerfilIcon from '../../assets/images/Header/perfilIcon.png';
 import './css/styles.css';
 
 const App = () => {
+  const { user } = useAuth();
+  
   // Array com os membros da equipe (nome e imagem)
   const teamMembers = [
     { name: "Ana Silva", image: PerfilIcon },
@@ -18,7 +22,8 @@ const App = () => {
 
   return (
     <div className="app-page">
-      <Header />
+      {/* Renderização Condicional do Header */}
+      {user ? <HeaderComCadastro /> : <HeaderSemCadastro />}
       
       <div className="section">
         {/* Título "Sobre nós" no lugar do título "Aplicativo" */}

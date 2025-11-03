@@ -4,6 +4,8 @@ import { useAuth } from '../../../../context/AuthContext';
 import api from '../../../../services/api';
 import HeaderComCadastro from '../../../../components/HeaderComCadastro';
 import Footer from '../../../../components/Footer';
+import ImageCropper from '../../../../components/ImageCropper/ImageCropper';
+import { FaPencilAlt } from 'react-icons/fa';
 import './css/styles.css';
 
 // Enums e Constantes
@@ -46,63 +48,24 @@ const AddPet = () => {
   });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('https://i.imgur.com/2qgrCI2.png');
+  const [imageToCrop, setImageToCrop] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Função para fazer upload da imagem
-  const uploadImage = async (file) => {
-    // IMPORTANTE: Configure estas variáveis com suas credenciais do Cloudinary
-    const cloudName = 'seu_cloud_name'; // Substitua pelo seu cloud name
-    const uploadPreset = 'seu_upload_preset'; // Substitua pelo seu upload preset
-    
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', uploadPreset);
-    
-    try {
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-        method: 'POST',
-        body: formData
-      });
-      
-      const data = await response.json();
-      if (data.secure_url) {
-        return data.secure_url;
-      } else {
-        throw new Error('Upload failed');
-      }
-    } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-      // Se o upload falhar, use a imagem padrão
-      return 'https://i.imgur.com/2qgrCI2.png';
+  // Função para abrir o cropper quando seleciona uma imagem
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onloadend = () => { setImageToCrop(reader.result); };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Validar tipo de arquivo
-      if (!file.type.startsWith('image/')) {
-        setError('Por favor, selecione um arquivo de imagem válido (JPG, PNG, GIF).');
-        return;
-      }
-      
-      // Validar tamanho do arquivo (máximo 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setError('A imagem deve ter no máximo 5MB.');
-        return;
-      }
-      
-      setImageFile(file);
-      setError('');
-      
-      // Criar preview da imagem
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  // Callback quando o usuário finaliza o crop
+  const handleCropComplete = (croppedFile) => {
+    setImageFile(croppedFile);
+    setImagePreview(URL.createObjectURL(croppedFile));
+    setImageToCrop(null);
   };
 
   const handleChange = (e) => {
@@ -134,13 +97,6 @@ const AddPet = () => {
     setError('');
 
     try {
-        let imageUrl = formData.imageurl; // Usa a imagem padrão inicialmente
-
-        // Se houver uma nova imagem, faz o upload
-        if (imageFile) {
-          imageUrl = await uploadImage(imageFile);
-        }
-
         const { name, age, speciespet, porte, gender, personalizedBreed } = formData;
         const breedKey = getBreedKeyForSpecies(speciespet);
         const selectedBreed = breedKey ? formData[breedKey] : null;
@@ -148,7 +104,7 @@ const AddPet = () => {
         const dataToSend = {
             name, 
             age: parseInt(age), 
-            imageurl: imageUrl, 
+            imageurl: 'https://i.imgur.com/2qgrCI2.png', // Imagem padrão inicial
             speciespet, 
             porte, 
             gender, 
@@ -172,7 +128,17 @@ const AddPet = () => {
         
         console.log("DADOS FINAIS ENVIADOS PARA A API:", dataToSend);
         
-        await api.post('/pets', dataToSend);
+        // Cria o pet primeiro
+        const petResponse = await api.post('/pets', dataToSend);
+        const petId = petResponse.data.id;
+
+        // Se houver uma imagem, faz o upload depois
+        if (imageFile && petId) {
+          const uploadFormData = new FormData();
+          uploadFormData.append('file', imageFile);
+          await api.post(`/upload/pet/${petId}`, uploadFormData);
+        }
+
         alert('Pet cadastrado com sucesso!');
         navigate('/pets');
     } catch (error) {
@@ -246,34 +212,41 @@ const AddPet = () => {
   return (
     <div className="add-pet-page">
       <HeaderComCadastro />
-      <div className="welcome-section">
-        <h1 className="welcome-title">Cadastre seu novo amigo</h1>
-      </div>
+      {imageToCrop && (
+        <ImageCropper
+          imageSrc={imageToCrop}
+          onCropComplete={handleCropComplete}
+          onClose={() => setImageToCrop(null)}
+        />
+      )}
+      <h1 className="welcome-title">Cadastre seu novo amigo</h1>
       <div className="add-pet-wrapper">
         <div className="add-pet-container">
           <form onSubmit={handleSubmit} className="pet-form">
             {error && <p className="error-message">{error}</p>}
             
-            {/* Upload Circular - Bolinha que abre os arquivos */}
+            {/* Upload Circular - Estilo do perfil */}
             <div className="avatar-upload">
-              <label htmlFor="avatar-input" className="avatar-label">
-                <input
-                  type="file"
-                  id="avatar-input"
-                  className="avatar-input"
-                  accept="image/*"
-                  onChange={handleImageChange}
+              <div className="profile-picture-container">
+                <img 
+                  src={imagePreview} 
+                  alt="Preview do pet" 
+                  className="profile-picture" 
+                  onError={(e) => { e.target.onerror = null; e.target.src='https://i.imgur.com/2qgrCI2.png' }}
                 />
-                {imagePreview === 'https://i.imgur.com/2qgrCI2.png' ? (
-                  <div className="avatar-placeholder">
-                    <div className="placeholder-icon">📷</div>
-                    <span>Adicionar Foto</span>
-                    <div className="avatar-hint">Clique para escolher</div>
-                  </div>
-                ) : (
-                  <img src={imagePreview} alt="Preview do pet" className="avatar-preview" />
-                )}
-              </label>
+                <div className="profile-picture-edit">
+                  <label htmlFor="avatar-input">
+                    <FaPencilAlt className="edit-icon" />
+                  </label>
+                  <input
+                    id="avatar-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="form-row">

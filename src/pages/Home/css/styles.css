@@ -22,6 +22,8 @@ body {
     width: 50%;
     position: relative;
     animation: fadeInUp 1s ease-out;
+    text-align: left;
+    padding-left: 5%;
 }
 
 @keyframes fadeInUp {

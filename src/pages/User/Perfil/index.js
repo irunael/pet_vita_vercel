@@ -27,11 +27,15 @@ const ProfileScreen = () => {
         try {
             // CORREÇÃO APLICADA AQUI
             const response = await api.get(`/users/me?_t=${new Date().getTime()}`);
+            console.log('Dados do usuário recebidos do backend:', response.data);
+            console.log('Username:', response.data.username);
+            console.log('Email:', response.data.email);
             setUserData(response.data);
             setEditData(response.data);
             setImagePreview(response.data.imageurl || profileIcon);
         } catch (err) {
             setError('Não foi possível carregar os dados do perfil.');
+            console.error('Erro ao buscar dados do usuário:', err);
         } finally {
             setLoading(false);
         }
@@ -79,9 +83,15 @@ const ProfileScreen = () => {
             setIsEditing(false);
             setHasChanges(false);
             setImageFile(null);
-            await fetchUserData(); 
+            
+            // Recarregar dados do usuário
+            await fetchUserData();
+            
+            // Disparar evento customizado para atualizar header
+            window.dispatchEvent(new CustomEvent('userProfileUpdated'));
         } catch (err) {
             alert('Erro ao salvar as alterações.');
+            console.error('Erro ao salvar:', err);
         } finally {
             setIsSaving(false);
         }

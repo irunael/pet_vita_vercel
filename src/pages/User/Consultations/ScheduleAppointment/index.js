@@ -41,6 +41,13 @@ const ScheduleAppointment = () => {
                     ]);
                     setPets(petsResponse.data || []);
                     setAllVets(vetsResponse.data || []);
+                    
+                    // DEBUG: Verificar estrutura dos veterinários
+                    console.log('=== DEBUG: Veterinários recebidos do backend ===');
+                    console.log('Total de veterinários:', vetsResponse.data?.length);
+                    console.log('Primeiro veterinário:', vetsResponse.data?.[0]);
+                    console.log('Campos disponíveis:', Object.keys(vetsResponse.data?.[0] || {}));
+                    console.log('================================================');
                 } catch (error) {
                     console.error("Erro ao buscar dados para agendamento:", error);
                     setError("Não foi possível carregar os dados necessários para o agendamento.");
@@ -80,7 +87,16 @@ const ScheduleAppointment = () => {
         let updatedFormData = { ...formData, [name]: value };
 
         if (name === 'specialityEnum') {
+            console.log('=== DEBUG: Filtrando veterinários ===');
+            console.log('Especialidade selecionada:', value);
+            console.log('Total de veterinários disponíveis:', allVets.length);
+            
             const vetsWithSpecialty = allVets.filter(vet => vet.specialityenum === value);
+            
+            console.log('Veterinários filtrados:', vetsWithSpecialty.length);
+            console.log('Veterinários filtrados:', vetsWithSpecialty);
+            console.log('====================================');
+            
             setFilteredVets(vetsWithSpecialty);
             updatedFormData.veterinarioId = '';
             setAvailableTimes([]);
@@ -128,9 +144,7 @@ const ScheduleAppointment = () => {
     return (
         <div className="add-pet-page">
             <HeaderComCadastro />
-            <div className="welcome-section">
-                <h1 className="welcome-title">Agende uma consulta para seu pet</h1>
-            </div>
+            <h1 className="welcome-title">Agende uma consulta para seu pet</h1>
             <div className="add-pet-wrapper">
                 <div className="add-pet-container">
                     <form onSubmit={handleSubmit} className="pet-form">

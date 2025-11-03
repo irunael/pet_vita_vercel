@@ -152,6 +152,8 @@
     font-family: "Poppins", sans-serif;
     font-size: 14px;
     transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
   }
   
   .dropdown-item:hover {

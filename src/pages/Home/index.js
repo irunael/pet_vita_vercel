@@ -64,6 +64,14 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleAgendarConsulta = () => {
+    if (!user) {
+      alert('Você precisa logar primeiro para marcar consulta');
+      return;
+    }
+    navigate('/agendar-consulta');
+  };
+
   return (
     <div className="app">
       {/* Renderização Condicional do Header */}
@@ -73,7 +81,7 @@ const Home = () => {
         <div id="cara">
           <h1 id="titulo">Pet Vita <br /> é cuidado</h1>
           <div id="btn_consulta">
-            <button id="consulta" onClick={() => navigate('/agendar-consulta')}>
+            <button id="consulta" onClick={handleAgendarConsulta}>
               Marque uma consulta
             </button>
           </div>

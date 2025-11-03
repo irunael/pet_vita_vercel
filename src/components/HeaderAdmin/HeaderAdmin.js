@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
 import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
 import logo from '../../assets/images/Header/LogoPet_vita(Atualizado).png';
-import profileIcon from '../../assets/images/Header/perfilIcon.png'; // Ícone padrão como fallback
+import profileIcon from '../../assets/images/Header/perfilIcon.png';
 import './css/Header.css';
 import { BsBellFill, BsChatDots } from 'react-icons/bs';
 
@@ -12,10 +12,8 @@ const HeaderAdmin = () => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const [notificationCount, setNotificationCount] = useState(0);
-    // ===== ALTERAÇÃO 1: Obter o usuário completo do contexto =====
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-
     const profileRef = useRef(null);
     const notificationRef = useRef(null);
 
@@ -59,10 +57,14 @@ const HeaderAdmin = () => {
             </div>
             
             <nav className="nav nav-center">
-                <NavLink to="/admin/dashboard" className="nav_link">Home</NavLink>
-                <NavLink to="/admin/pacientes" className="nav_link">Pacientes</NavLink>
-                <NavLink to="/admin/veterinarios" className="nav_link">Veterinários</NavLink>
+                <NavLink to="/admin/dashboard" className="nav_link">Painel</NavLink>
                 <NavLink to="/admin/consultas" className="nav_link">Consultas</NavLink>
+                <NavLink to="/admin/veterinarios" className="nav_link">Veterinários</NavLink>
+                <NavLink to="/admin/funcionarios" className="nav_link">Funcionários</NavLink>
+                <NavLink to="/admin/pacientes" className="nav_link">Pacientes</NavLink>
+                <NavLink to="/admin/services" className="nav_link">Serviços</NavLink>
+                {/* --- LINK ADICIONADO AQUI --- */}
+                <NavLink to="/admin/schedules" className="nav_link">Horários</NavLink>
                 <NavLink to="/admin/relatorios" className="nav_link">Relatórios</NavLink>
             </nav>
 
@@ -79,11 +81,10 @@ const HeaderAdmin = () => {
                 
                 <div className="profile-icon-container" ref={profileRef}>
                     <div className="profile-icon" onClick={() => setShowProfileDropdown(prev => !prev)}>
-                        {/* ===== ALTERAÇÃO 2: Usar a imagem do usuário ou o ícone padrão ===== */}
                         <img 
                           src={user?.imageurl || profileIcon} 
                           alt="Perfil"
-                          onError={(e) => { e.target.onerror = null; e.target.src = profileIcon; }} // Fallback se a URL da imagem quebrar
+                          onError={(e) => { e.target.onerror = null; e.target.src = profileIcon; }}
                         />
                     </div>
                     {showProfileDropdown && (

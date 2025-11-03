@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// ===== CORREÇÕES NOS IMPORTS ABAIXO =====
-import { Link } from 'react-router-dom'; // Corrigido: Importando o 'Link' que é usado no código
-import HeaderComCadastro from '../../../../components/HeaderComCadastro'; // Corrigido: Importando com o nome correto
-// ======================================
+import { Link } from 'react-router-dom';
+import HeaderComCadastro from '../../../../components/HeaderComCadastro';
 import Footer from '../../../../components/Footer';
 import { useAuth } from '../../../../context/AuthContext';
 import api from '../../../../services/api';
-import './css/styles.css'; // Verifique se este é o caminho correto para o seu CSS
+import './css/styles.css';
 
 const PetsProfile = () => {
   const [pets, setPets] = useState([]);
@@ -25,13 +23,8 @@ const PetsProfile = () => {
       setLoading(true);
       setError('');
       try {
-        // ===== ALTERAÇÃO PRINCIPAL AQUI =====
-        // Agora chamamos o novo endpoint seguro e eficiente
         const response = await api.get('/pets/my-pets');
         setPets(response.data || []);
-        // Não é mais necessário filtrar no front-end!
-        // =====================================
-
       } catch (error) {
         console.error("Erro ao buscar pets:", error);
         setError('Não foi possível carregar seus pets.');
@@ -46,9 +39,7 @@ const PetsProfile = () => {
   return (
     <div className="pet-profile-page">
       <HeaderComCadastro />
-      <div className="welcome-section">
-        <h1 className="welcome-title">Bem vindo ao espaço para os seus Pets</h1>
-      </div>
+      <h1 className="welcome-title">Bem vindo ao espaço para os seus Pets</h1>
       <div className="pet-profile-container">
         {loading && <p style={{textAlign: 'center'}}>Carregando seus pets...</p>}
         {error && <p className="error-message">{error}</p>}
@@ -61,8 +52,10 @@ const PetsProfile = () => {
                     <img src={pet.imageurl} alt={`Foto de ${pet.name}`} className="pet-photo" onError={(e) => { e.target.onerror = null; e.target.src='https://i.imgur.com/2qgrCI2.png' }} />
                   </div>
                   <div className="pet-info">
-                    <h3 className="pet-name">{pet.name}</h3>
-                    <span className="pet-gender">{pet.gender}</span>
+                    <div className="pet-name-gender-container">
+                      <h3 className="pet-name">{pet.name}</h3>
+                      <span className="pet-gender">{pet.gender}</span>
+                    </div>
                   </div>
                   <Link to={`/pets-details/${pet.id}`} state={{ petData: pet }} className="details-button">
                     Detalhes <span className="arrow">›</span>

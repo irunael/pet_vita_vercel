@@ -97,14 +97,15 @@
 }
 
 /* Botões de Ação */
-.details-actions {
+.profile-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 15px;
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid #f0f0f0;
 }
+
 .back-button, .edit-button, .decline-button, .save-button, .cancel-button {
   padding: 12px 25px;
   border: none;
@@ -114,12 +115,68 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
+  min-width: 140px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.back-button { background-color: #f0f0f0; color: #555; margin-right: auto; }
-.edit-button { background-color: #8D7EFB; color: white; }
-.decline-button { background-color: #f44336; color: white; }
-.save-button { background-color: #4CAF50; color: white; }
-.cancel-button { background-color: #6c757d; color: white; }
+
+.back-button { 
+  background-color: #f0f0f0; 
+  color: #555;
+  margin-right: auto;
+}
+
+.edit-button { 
+  background-color: #8D7EFB; 
+  color: white; 
+}
+
+.decline-button { 
+  background-color: #f44336; 
+  color: white; 
+}
+
+.save-button { 
+  background-color: #4CAF50; 
+  color: white; 
+}
+
+.cancel-button { 
+  background-color: #6c757d; 
+  color: white; 
+}
+
+.back-button:hover { 
+  background-color: #e0e0e0; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.edit-button:hover { 
+  background-color: #7a6dd9; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(141, 126, 251, 0.3);
+}
+
+.decline-button:hover { 
+  background-color: #da190b; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
+
+.save-button:hover { 
+  background-color: #45a049; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.cancel-button:hover { 
+  background-color: #5a6268; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
