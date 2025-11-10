@@ -5,6 +5,7 @@ import api from '../../../services/api';
 import { FaEdit, FaTrash, FaPlus, FaSearch, FaSave, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import AddEmployeeModal from './AddEmployeeModal';
 import './css/styles.css';
+import './css/admin-styles.css';
 import { toast } from 'react-toastify';
 
 const EmployeeList = () => {

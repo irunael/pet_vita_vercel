@@ -1,11 +1,46 @@
 /* Estilos Gerais da Página de Lista */
-.admin-page { background-color: #f9f9f9; min-height: 100vh; }
-.admin-content { max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 150px; }
-.admin-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-.admin-page-header h1 { font-family: 'Poppins', sans-serif; margin: 0; }
+.admin-page { 
+  background-color: #f9f9f9; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.admin-content { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  padding-top: 150px;
+  flex: 1;
+  padding-bottom: 60px;
+}
+.admin-page-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #E5DBF7;
+}
+.admin-page-header h1 { 
+  font-family: 'Poppins', sans-serif; 
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+  flex: 1;
+}
 
 /* Filtros */
-.admin-filters { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.admin-filters { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 15px; 
+  margin-bottom: 30px; 
+  background-color: #fff; 
+  padding: 25px; 
+  border-radius: 12px; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  min-height: 80px;
+}
 .admin-filters input, .admin-filters select { padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; font-family: 'Poppins', sans-serif; color: #555; flex: 1; min-width: 200px; transition: all 0.2s ease-in-out; }
 .admin-filters input:focus, .admin-filters select:focus { outline: none; border-color: #B77EFF; box-shadow: 0 0 0 3px rgba(183, 126, 255, 0.2); }
 

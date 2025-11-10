@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../../services/api';
 import './css/styles.css';
+import './css/modal-styles.css';
 import defaultProfileIcon from '../../../assets/images/Header/perfilIcon.png';
 import { toast } from 'react-toastify';
 
@@ -54,25 +55,101 @@ const AddEmployeeModal = ({ onClose, onEmployeeAdded }) => {
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
-                <h2>Adicionar Novo Funcionário</h2>
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <h2>✨ Adicionar Novo Funcionário</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="avatar-upload">
-                        <label htmlFor="avatar-input-add-employee" className="avatar-label">
-                            <img src={imagePreview} alt="Preview" className="avatar-preview" />
+                        <label htmlFor="avatar-input-add-employee" className="avatar-label" title="Clique para adicionar foto">
+                            <img src={imagePreview} alt="Preview do Avatar" className="avatar-preview" />
                         </label>
-                        <input id="avatar-input-add-employee" type="file" accept="image/*" onChange={handleImageChange} className="avatar-input" />
+                        <input 
+                            id="avatar-input-add-employee" 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageChange} 
+                            className="avatar-input" 
+                        />
                     </div>
-                    <div className="form-group-modal"><label>Nome</label><input type="text" name="username" required onChange={handleChange} /></div>
-                    <div className="form-group-modal"><label>Email</label><input type="email" name="email" required onChange={handleChange} /></div>
-                    <div className="form-group-modal"><label>Senha Provisória</label><input type="password" name="password" required onChange={handleChange} /></div>
-                    <div className="form-group-modal"><label>Telefone</label><input type="tel" name="phone" required onChange={handleChange} /></div>
-                    <div className="form-group-modal"><label>Endereço</label><input type="text" name="address" required onChange={handleChange} /></div>
-                    <div className="form-group-modal"><label>RG</label><input type="text" name="rg" required onChange={handleChange} /></div>
+                    
+                    <div className="form-group-modal">
+                        <label>Nome Completo</label>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            placeholder="Digite o nome completo do funcionário"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="form-group-modal">
+                        <label>Email</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="funcionario@exemplo.com"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="form-group-modal">
+                        <label>Senha Provisória</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="Mínimo 6 caracteres"
+                            minLength="6"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="form-group-modal">
+                        <label>Telefone</label>
+                        <input 
+                            type="tel" 
+                            name="phone" 
+                            placeholder="11987654321 (apenas números)"
+                            pattern="[0-9]{11}"
+                            title="Digite 11 números (DDD + número)"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="form-group-modal">
+                        <label>Endereço Completo</label>
+                        <input 
+                            type="text" 
+                            name="address" 
+                            placeholder="Rua, número, bairro, cidade - Estado"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
+                    <div className="form-group-modal">
+                        <label>RG (somente números)</label>
+                        <input 
+                            type="text" 
+                            name="rg" 
+                            placeholder="123456789"
+                            pattern="[0-9]{7,12}"
+                            title="Digite apenas números do RG"
+                            required 
+                            onChange={handleChange} 
+                        />
+                    </div>
+                    
                     <div className="modal-actions">
-                        <button type="button" className="btn-cancel" onClick={onClose}>Cancelar</button>
-                        <button type="submit" className="btn-save" disabled={loading}>{loading ? 'Salvando...' : 'Salvar'}</button>
+                        <button type="button" className="btn-cancel" onClick={onClose}>
+                            Cancelar
+                        </button>
+                        <button type="submit" className="btn-save" disabled={loading}>
+                            {loading ? 'Salvando...' : 'Cadastrar Funcionário'}
+                        </button>
                     </div>
                 </form>
             </div>

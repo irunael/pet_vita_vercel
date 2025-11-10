@@ -1,18 +1,100 @@
 /* Estilos Gerais da Página de Lista */
-.admin-page { background-color: #f9f9f9; min-height: 100vh; }
-.admin-content { max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 150px; }
-.admin-page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-.admin-page-header h1 { font-family: 'Poppins', sans-serif; margin: 0; }
-.add-new-button { background-color: #8D7EFB; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-weight: bold; font-family: 'Poppins', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background-color 0.2s; }
-.add-new-button:hover { background-color: #7a6ae8; }
+.admin-page { 
+  background-color: #f9f9f9; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.admin-content { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  padding-top: 150px;
+  flex: 1;
+  padding-bottom: 60px;
+}
+.admin-page-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #E5DBF7;
+  gap: 60px;
+}
+.admin-page-header h1 { 
+  font-family: 'Poppins', sans-serif; 
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+  flex: 1;
+  white-space: nowrap;
+}
+.add-new-button { 
+  background: linear-gradient(135deg, #8D7EFB 0%, #7015E3 100%);
+  color: white; 
+  border: none; 
+  border-radius: 12px; 
+  padding: 14px 28px; 
+  font-weight: 700; 
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(141, 126, 251, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.add-new-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+.add-new-button:hover::before {
+  left: 100%;
+}
+.add-new-button:hover { 
+  background: linear-gradient(135deg, #7015E3 0%, #5a10b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(112, 21, 227, 0.4);
+}
+.add-new-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(112, 21, 227, 0.3);
+}
 
 /* Filtros */
-.admin-filters { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.admin-filters { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 15px; 
+  margin-bottom: 30px; 
+  background-color: #fff; 
+  padding: 25px; 
+  border-radius: 12px; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  min-height: 80px;
+}
 .admin-filters input, .admin-filters select { padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; font-family: 'Poppins', sans-serif; color: #555; flex: 1; min-width: 200px; transition: all 0.2s ease-in-out; }
 .admin-filters input:focus, .admin-filters select:focus { outline: none; border-color: #B77EFF; box-shadow: 0 0 0 3px rgba(183, 126, 255, 0.2); }
-.search-bar { position: relative; display: flex; align-items: center; flex: 1; }
-.search-bar .search-icon { position: absolute; left: 15px; color: #aaa; }
-.search-bar input { padding-left: 40px; width: 100%; }
+.search-bar { 
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  flex: 3;
+  min-width: 400px;
+  max-width: 100%;
+}
+.search-bar .search-icon { position: absolute; left: 12px; color: #aaa; font-size: 1rem; z-index: 1; }
+.search-bar input { padding-left: 45px; width: 100%; }
 
 /* Cards de Gerenciamento */
 .admin-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
@@ -34,3 +116,17 @@
 .form-group-card label { margin-bottom: 5px; font-weight: 600; color: #555; font-size: 0.9rem; }
 .card-input { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; box-sizing: border-box; font-family: 'Poppins', sans-serif; color: #555; transition: all 0.2s ease-in-out; }
 .card-input:focus { outline: none; border-color: #B77EFF; box-shadow: 0 0 0 3px rgba(183, 126, 255, 0.2); }
+
+.card-avatar-placeholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #8D7EFB;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}

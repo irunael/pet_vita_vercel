@@ -1,6 +1,18 @@
 /* Estilos Gerais */
-.admin-page { background-color: #f9f9f9; min-height: 100vh; }
-.dashboard-content { max-width: 1200px; margin: 0 auto; padding: 20px; padding-top: 150px; }
+.admin-page { 
+  background-color: #f9f9f9; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-content { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  padding-top: 150px;
+  flex: 1;
+  padding-bottom: 60px;
+}
 
 /* Seção de Boas-Vindas */
 .welcome-section { margin-bottom: 40px; }
